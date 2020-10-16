@@ -1,4 +1,6 @@
+#!groovy
 def holaMundo = "HOLAAAAA"
+
 
 pipeline {
     agent any

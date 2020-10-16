@@ -38,7 +38,7 @@ pipeline {
                         <b>Branch</b>: ${BRANCH_NAME} \
                         <b>Build </b> : OK \
                         <b>Test suite</b> = Passed \
-                        <b>Un saludete</b> = ${holaMundo} \
+                        <b>Un saludete</b> = ${holaMundo[0]["commit"]["autor"]["date"]} \
                         <b>Visitando toda la api</b> = ${githubApiCurl}'"
                         //final String url = "http://localhost:8080/job/Demos/job/maven-pipeline-demo/job/sdkman/2/api/json"
                         //final String response = sh(script: "curl -s $url", returnStdout: true).trim()

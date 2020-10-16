@@ -41,7 +41,7 @@ pipeline {
         failure {
             withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
                              string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
-                def githubApiCurl = "curl https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits",
+                def githubApiCurl = "curl https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits"
 
                 sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \
                 <b>Branch</b>: ${BRANCH_NAME} \

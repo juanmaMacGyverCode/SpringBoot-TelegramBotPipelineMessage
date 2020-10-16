@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage("Compile") {
             steps {
+                echo "El nombre de la rama es ${BRANCH_NAME}"
                 sh "./gradlew compileJava"
             }
         }

@@ -46,7 +46,7 @@ pipeline {
                 sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \
                 <b>Branch</b>: ${BRANCH_NAME} \
                 <b>Build </b>: OK \
-                <b>Test suite</b> = FAILURE'
+                <b>Test suite</b> = FAILURE' \
                 <b>Contenido JSON: ${githubApiCurl}"
                     //final String url = "http://localhost:8080/job/Demos/job/maven-pipeline-demo/job/sdkman/2/api/json"
                     //final String response = sh(script: "curl -s $url", returnStdout: true).trim()

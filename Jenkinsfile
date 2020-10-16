@@ -33,7 +33,7 @@ pipeline {
                         <b>Branch</b>: master \
                         <b>Build </b> : OK \
                         <b>Test suite</b> = Passed \
-                        <b>Contenido JSON: ${holaMundo}'"
+                        <b>Contenido JSON</b>: ${holaMundo}'"
                         //final String url = "http://localhost:8080/job/Demos/job/maven-pipeline-demo/job/sdkman/2/api/json"
                         //final String response = sh(script: "curl -s $url", returnStdout: true).trim()
                     }
@@ -50,7 +50,7 @@ pipeline {
                 <b>Branch</b>: ${BRANCH_NAME} \
                 <b>Build </b>: OK \
                 <b>Test suite</b> = FAILURE \
-                <b>Contenido JSON: ${holaMundo}'"
+                <b>Contenido JSON</b>: ${holaMundo}'"
 
                     //final String url = "http://localhost:8080/job/Demos/job/maven-pipeline-demo/job/sdkman/2/api/json"
                     //final String response = sh(script: "curl -s $url", returnStdout: true).trim()

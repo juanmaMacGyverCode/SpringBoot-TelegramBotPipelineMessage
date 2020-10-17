@@ -33,8 +33,8 @@ pipeline {
                                     string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
                         def url = "https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits"
                         def githubApiCurl = sh(script: "curl -s ${url}", returnStdout: true).trim()
-                        /*def longitud = githubApiCurl.size()
-                        sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \
+                        def longitud = githubApiCurl.size()
+                        /*sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \
                         <b>Branch</b>: ${BRANCH_NAME} \
                         <b>Build </b> : OK \
                         <b>Test suite</b> = Passed \

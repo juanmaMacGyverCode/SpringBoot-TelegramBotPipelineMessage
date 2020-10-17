@@ -32,8 +32,8 @@ pipeline {
                     withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
                                     string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
                         def url = "https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits"
-                        /*def githubApiCurl = sh(script: "curl -s ${url}", returnStdout: true)
-                        def longitud = githubApiCurl.size()
+                        def githubApiCurl = sh(script: "curl -s ${url}", returnStdout: true)
+                        /*def longitud = githubApiCurl.size()
                         sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \
                         <b>Branch</b>: ${BRANCH_NAME} \
                         <b>Build </b> : OK \

@@ -2,18 +2,11 @@
 import groovy.json.JsonSlurper
 def holaMundo = "HOLAAAAA"
 
-class GetCardService {
+def getCardById() {
 
-    String url = "https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits"
-
-    def getCardById() {
-
-        URL apiUrl = new URL(url)
+        URL apiUrl = new URL("https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits")
         def card = new JsonSlurper().parseText(apiUrl.text)
         return card
-
-    }
-
 }
 
 
@@ -50,8 +43,8 @@ pipeline {
                         //def apiUrl = new URL(url)
                         //def githubApiCurl = new JsonSlurper().parseText(apiUrl.text)
                         //def longitud = githubApiCurl.getClass()
-                        def apiObject = new GetCardService()
-                        //def jsonApiGitHub = apiObject.getCardById()
+                        //def apiObject = new GetCardService()
+                        def jsonApiGitHub = getCardById()
 
                         sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \
                         <b>Branch</b>: ${BRANCH_NAME} \

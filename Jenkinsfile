@@ -44,7 +44,7 @@ pipeline {
                         //def githubApiCurl = new JsonSlurper().parseText(apiUrl.text)
                         //def longitud = githubApiCurl.getClass()
                         //def apiObject = new GetCardService()
-                        def jsonApiGitHub = getCardById()
+                        //def jsonApiGitHub = getCardById()
 
                         sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \
                         <b>Branch</b>: ${BRANCH_NAME} \

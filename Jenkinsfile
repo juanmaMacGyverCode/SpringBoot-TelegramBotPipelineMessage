@@ -1,4 +1,5 @@
 #!groovy
+import groovy.json.JsonSlurper
 def holaMundo = "HOLAAAAA"
 
 
@@ -31,7 +32,9 @@ pipeline {
                     withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
                                     string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
                         def url = "https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits"
-                        def githubApiCurl = sh(script: "curl -s ${url}", returnStdout: false).trim()
+                        //def githubApiCurl = sh(script: "curl -s ${url}", returnStdout: false).trim()
+                        def apiUrl = new URL(url)
+                        def githubApiCurl = new JsonSlurper().parseText(apiUrl.text)
                         def longitud = githubApiCurl.getClass()
 
                         sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \

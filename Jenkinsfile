@@ -5,7 +5,7 @@ def holaMundo = "HOLAAAAA"
 def getCardById() {
 
         URL apiUrl = new URL("https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits")
-        def card = new JsonSlurper().parseText(apiUrl.text)
+        def card = new JsonSlurper().parseText(apiUrl.toString())
         return card
 }
 

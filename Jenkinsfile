@@ -36,6 +36,7 @@ pipeline {
                 }*/
             steps {
                 script{
+                    env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
                     withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
                                     string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
                         def url = "https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits"
@@ -48,7 +49,7 @@ pipeline {
 
                         sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \
                         <b>Branch</b>: ${BRANCH_NAME} \
-                        <b>Autor</b>: ${GITHUB_COMMENT_AUTHOR} \
+                        <b>Autor</b>: ${env.GIT_COMMIT_MSG} \
                         <b>Build </b> : OK \
                         <b>Test suite</b> = Passed \
                         <b>Un saludete</b> = ${holaMundo} \

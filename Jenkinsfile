@@ -50,7 +50,7 @@ pipeline {
                         sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='<b>Project</b> : POC \
                         <b>Branch</b>: ${BRANCH_NAME} \
                         <b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \
-                        <b>Variable GIT</b>: ${GIT_URL} \
+                        <b>Mensaje Commit 2</b>: ${GIT_COMMIT} \
                         <b>Build </b> : OK \
                         <b>Test suite</b> = Passed \
                         <b>Un saludete</b> = ${holaMundo} \

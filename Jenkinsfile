@@ -51,6 +51,7 @@ pipeline {
                         <b>Branch</b>: ${BRANCH_NAME} \
                         <b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \
                         <b>Mensaje Commit 2</b>: ${GIT_COMMIT} \
+                        <b>Autor Commit 2</b>: ${GIT_COMMITTER_NAME} \
                         <b>Build </b> : OK \
                         <b>Test suite</b> = Passed \
                         <b>Un saludete</b> = ${holaMundo} \

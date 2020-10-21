@@ -9,6 +9,7 @@ def getCardById() {
         return card
 }
 
+def FAILED_STAGE
 
 pipeline {
     agent any
@@ -18,12 +19,18 @@ pipeline {
     stages {
         stage("Compile") {
             steps {
+                script {
+                    FAILED_STAGE=env.STAGE_NAME
+                }
                 echo "El nombre de la rama es ${BRANCH_NAME}"
                 sh "./gradlew compileJava"
             }
         }
         stage("Unit test") {
             steps {
+                script {
+                    FAILED_STAGE=env.STAGE_NAME
+                }
                 sh "./gradlew test"
             }
         }
@@ -36,6 +43,7 @@ pipeline {
                 }*/
             steps {
                 script{
+                    FAILED_STAGE=env.STAGE_NAME
                     env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
                     GIT_NAME= sh (script: 'git --no-pager show -s --format=%an ${GIT_COMMIT}', returnStdout: true).trim()
                     GIT_EMAIL= sh (script: 'git --no-pager show -s --format=%ae ${GIT_COMMIT}', returnStdout: true).trim()
@@ -55,7 +63,7 @@ pipeline {
                         <b>Mensaje Commit 2</b>: ${GIT_COMMIT} \
                         <b>Autor Commit</b>: ${GIT_NAME}\
                         <b>Email Commit</b>: ${GIT_EMAIL}\
-                        <b>Build </b> : OK \
+                        <b>Build </b> : SUCCESSFUL \
                         <b>Test suite</b> = Passed \
                         <b>Un saludete</b> = ${holaMundo} \
                         <b>Visitando toda la api</b> = Por ahora un hola'"
@@ -76,6 +84,7 @@ pipeline {
                 <b>Branch</b>: ${BRANCH_NAME} \
                 <b>Build </b>: OK \
                 <b>Test suite</b> = FAILURE \
+                <b>Failed step</b> : ${FAILED_STAGE} \
                 <b>Un saludete</b> = ${holaMundo}'"
 
                     //final String url = "http://localhost:8080/job/Demos/job/maven-pipeline-demo/job/sdkman/2/api/json"

@@ -64,7 +64,6 @@ pipeline {
                         <b>Autor Commit</b>: ${GIT_NAME}\
                         <b>Email Commit</b>: ${GIT_EMAIL}\
                         <b>Git branch</b>: ${GIT_URL}\
-                        <b>Git author name</b>: ${GIT_COMMITTER_NAME}\
                         <b>Build </b> : SUCCESSFUL \
                         <b>Test suite</b> = Passed \
                         <b>Un saludete</b> = ${holaMundo} \

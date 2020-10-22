@@ -44,7 +44,6 @@ pipeline {
             steps {
                 script{
                     FAILED_STAGE=env.STAGE_NAME
-                    asgfagas
                     env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
                     GIT_NAME= sh (script: 'git --no-pager show -s --format=%an ${GIT_COMMIT}', returnStdout: true).trim()
                     GIT_EMAIL= sh (script: 'git --no-pager show -s --format=%ae ${GIT_COMMIT}', returnStdout: true).trim()
@@ -64,6 +63,7 @@ pipeline {
                         <b>Mensaje Commit 2</b>: ${GIT_COMMIT} \
                         <b>Autor Commit</b>: ${GIT_NAME}\
                         <b>Email Commit</b>: ${GIT_EMAIL}\
+                        <b>Git branch</b>: ${GIT_REPO_URL}\
                         <b>Build </b> : SUCCESSFUL \
                         <b>Test suite</b> = Passed \
                         <b>Un saludete</b> = ${holaMundo} \

@@ -63,7 +63,7 @@ pipeline {
                         <b>Mensaje Commit 2</b>: ${GIT_COMMIT} \
                         <b>Autor Commit</b>: ${GIT_NAME}\
                         <b>Email Commit</b>: ${GIT_EMAIL}\
-                        <b>Git branch</b>: ${GIT_URL}\
+                        <b>Git branch</b>: ${GIT_URL.substring(0,-4)}\
                         <b>Build </b> : SUCCESSFUL \
                         <b>Test suite</b> = Passed \
                         <b>Un saludete</b> = ${holaMundo} \

@@ -55,7 +55,7 @@ pipeline {
                     def urlWithCodeCommit = urlShort + "/commit/" + env.GIT_COMMIT
                     def now = LocalDateTime.now()
 
-                    def dateTime = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmm"))
+                    def dateTime = now.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
 
                     withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
                                     string(credentialsId: 'CHAT_ID', variable: 'ID')]) {

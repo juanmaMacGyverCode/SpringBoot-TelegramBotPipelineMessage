@@ -48,6 +48,7 @@ pipeline {
                     GIT_NAME= sh (script: 'git --no-pager show -s --format=%an ${GIT_COMMIT}', returnStdout: true).trim()
                     GIT_EMAIL= sh (script: 'git --no-pager show -s --format=%ae ${GIT_COMMIT}', returnStdout: true).trim()
                     def gitTemp = env.GIT_URL
+                    def urlShort = gitTemp.substring(0, gitTemp.length()-4)
                     //def indexOfCom = gitTemp.indexOf('com',0)
                     //def gitShort = gitTemp.substring(indexOfCom)
                     withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),

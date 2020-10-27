@@ -50,8 +50,6 @@ pipeline {
                     def gitTemp = env.GIT_URL
                     def urlShort = gitTemp.substring(0, gitTemp.length()-4)
                     def urlWithCodeCommit = urlShort + "/commit/" + env.GIT_COMMIT
-                    //def indexOfCom = gitTemp.indexOf('com',0)
-                    //def gitShort = gitTemp.substring(indexOfCom)
                     withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
                                     string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
                         def url = "https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits"
@@ -69,10 +67,8 @@ pipeline {
                         <b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} <br>\
                         <b>Código commit</b>: ${GIT_URL}<br>\
                         <b>Estado </b> : SUCCESSFUL <br> \
-                        <b>Enlace a Git</b>: ${urlWithCodeCommit}<br>'"
+                        <b>Enlace a Git</b>: ${urlWithCodeCommit}'"
 
-                        //final String url = "http://localhost:8080/job/Demos/job/maven-pipeline-demo/job/sdkman/2/api/json"
-                        //final String response = sh(script: "curl -s $url", returnStdout: true).trim()
                     }
                 }
             }

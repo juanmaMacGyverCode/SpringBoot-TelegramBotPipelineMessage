@@ -49,6 +49,7 @@ pipeline {
                     GIT_EMAIL= sh (script: 'git --no-pager show -s --format=%ae ${GIT_COMMIT}', returnStdout: true).trim()
                     def gitTemp = env.GIT_URL
                     def urlShort = gitTemp.substring(0, gitTemp.length()-4)
+                    def urlWithCodeCommit = urlShort + "/commit/" + env.GIT_COMMIT
                     //def indexOfCom = gitTemp.indexOf('com',0)
                     //def gitShort = gitTemp.substring(indexOfCom)
                     withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
@@ -67,7 +68,7 @@ pipeline {
                         <b>Mensaje Commit 2</b>: ${GIT_COMMIT} \
                         <b>Autor Commit</b>: ${GIT_NAME}\
                         <b>Email Commit</b>: ${GIT_EMAIL}\
-                        <b>Git branch</b>: ${urlShort}\
+                        <b>Git branch</b>: ${urlWithCodeCommit}\
                         <b>Git branch 2</b>: ${GIT_URL}\
                         <b>Build </b> : SUCCESSFUL \
                         <b>Test suite</b> = Passed \

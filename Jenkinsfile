@@ -50,6 +50,8 @@ pipeline {
                     def gitTemp = env.GIT_URL
                     def urlShort = gitTemp.substring(0, gitTemp.length()-4)
                     def urlWithCodeCommit = urlShort + "/commit/" + env.GIT_COMMIT
+                    //def indexOfCom = gitTemp.indexOf('com',0)
+                    //def gitShort = gitTemp.substring(indexOfCom)
                     withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
                                     string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
                         def url = "https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits"
@@ -60,15 +62,21 @@ pipeline {
                         //def apiObject = new GetCardService()
                         //def jsonApiGitHub = getCardById()
 
-                        sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id='-425187469' -d parse_mode='HTML' -d text='<b>Project</b> : Huella positiva <br>\
-                        <b>Branch</b>: ${BRANCH_NAME} <br>\
-                        <b>Autor Commit</b>: ${GIT_NAME}<br>\
-                        <b>Email Commit</b>: ${GIT_EMAIL}<br>\
-                        <b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} <br>\
-                        <b>Código commit</b>: ${GIT_URL}<br>\
-                        <b>Estado </b> : SUCCESSFUL <br> \
-                        <b>Enlace a Git</b>: ${urlWithCodeCommit}'"
+                        sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id='-425187469' -d parse_mode='HTML' -d text='<b>Project</b> : POC \
+                        <b>Branch</b>: ${BRANCH_NAME} \
+                        <b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \
+                        <b>Mensaje Commit 2</b>: ${GIT_COMMIT} \
+                        <b>Autor Commit</b>: ${GIT_NAME}\
+                        <b>Email Commit</b>: ${GIT_EMAIL}\
+                        <b>Git branch</b>: ${urlWithCodeCommit}\
+                        <b>Git branch 2</b>: ${GIT_URL}\
+                        <b>Build </b> : SUCCESSFUL \
+                        <b>Test suite</b> = Passed \
+                        <b>Un saludete</b> = ${holaMundo} \
+                        <b>Visitando toda la api</b> = Por ahora un hola'"
 
+                        //final String url = "http://localhost:8080/job/Demos/job/maven-pipeline-demo/job/sdkman/2/api/json"
+                        //final String response = sh(script: "curl -s $url", returnStdout: true).trim()
                     }
                 }
             }

@@ -47,7 +47,9 @@ pipeline {
                     env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
                     GIT_NAME= sh (script: 'git --no-pager show -s --format=%an ${GIT_COMMIT}', returnStdout: true).trim()
                     GIT_EMAIL= sh (script: 'git --no-pager show -s --format=%ae ${GIT_COMMIT}', returnStdout: true).trim()
-                    url = env.GIT_URL
+                    def gitTemp = env.GIT_URL
+                    //def indexOfCom = gitTemp.indexOf('com',0)
+                    //def gitShort = gitTemp.substring(indexOfCom)
                     withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
                                     string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
                         def url = "https://api.github.com/repos/juanmaMacGyverCode/SpringBoot-TelegramBotPipelineMessage/commits"
@@ -64,7 +66,7 @@ pipeline {
                         <b>Mensaje Commit 2</b>: ${GIT_COMMIT} \
                         <b>Autor Commit</b>: ${GIT_NAME}\
                         <b>Email Commit</b>: ${GIT_EMAIL}\
-                        <b>Git branch</b>: ${url}\
+                        <b>Git branch</b>: ${gitTemp}\
                         <b>Git branch 2</b>: ${GIT_URL}\
                         <b>Build </b> : SUCCESSFUL \
                         <b>Test suite</b> = Passed \

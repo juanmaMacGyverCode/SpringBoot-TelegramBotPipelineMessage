@@ -64,12 +64,12 @@ pipeline {
 
                         sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id='-425187469' -d parse_mode='HTML' -d text='<b>Project</b> : Huella positiva \n\
                         <b>Branch</b>: ${BRANCH_NAME} \n\
-                        <b>Autor Commit</b>: ${GIT_NAME} \n\
-                        <b>Email Commit</b>: ${GIT_EMAIL} \n\
+<b>Autor Commit</b>: ${GIT_NAME} \n\
+<b>Email Commit</b>: ${GIT_EMAIL} \n\
                         <b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \n\
-                        <b>Código commit</b>: ${GIT_URL} \n\
-                        <b>Estado </b> : SUCCESSFUL \n\
-                        <b>Enlace a Git</b>: ${urlWithCodeCommit}'"
+<b>Código commit</b>: ${GIT_URL} \n\
+<b>Estado </b> : SUCCESSFUL \n\
+<b>Enlace a Git</b>: ${urlWithCodeCommit}'"
 
                         //final String url = "http://localhost:8080/job/Demos/job/maven-pipeline-demo/job/sdkman/2/api/json"
                         //final String response = sh(script: "curl -s $url", returnStdout: true).trim()

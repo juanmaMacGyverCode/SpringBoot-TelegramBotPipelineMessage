@@ -82,7 +82,7 @@ pipeline {
 
                 withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
                                 string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
-                    def htmlMessageBot = "<b>Project</b>: ${env.GIT_REPO_NAME} \n<b>Branch</b>: ${BRANCH_NAME} \n<b>Fecha del commit</b>: ${dateTime} \n<b>Autor Commit</b>: ${GIT_NAME} \n<b>Email Commit</b>: ${GIT_EMAIL} \n<b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \n<b>Código commit</b>: ${GIT_COMMIT} \n<b style=\"background-color:FireBrick;\">Estado</b>: FAILURE \n<b>Failed step</b> : ${FAILED_STAGE} \n<b>Enlace a Git</b>: ${urlWithCodeCommit}"
+                    def htmlMessageBot = "<b>Project</b>: ${env.GIT_REPO_NAME} \n<b>Branch</b>: ${BRANCH_NAME} \n<b>Fecha del commit</b>: ${dateTime} \n<b>Autor Commit</b>: ${GIT_NAME} \n<b>Email Commit</b>: ${GIT_EMAIL} \n<b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \n<b>Código commit</b>: ${GIT_COMMIT} \n<b>Estado</b>: <span style=\"background-color:FireBrick;\">FAILURE</span> \n<b>Failed step</b> : ${FAILED_STAGE} \n<b>Enlace a Git</b>: ${urlWithCodeCommit}"
                     sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id='${ID}' -d parse_mode='HTML' -d text='${htmlMessageBot}'"
                 }
             }

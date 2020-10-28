@@ -33,6 +33,7 @@ pipeline {
             steps {
                 script {
                     FAILED_STAGE=env.STAGE_NAME
+                    error("Build failed because of this and that..")
                 }
                 sh "./gradlew test"
             }

@@ -66,15 +66,16 @@ pipeline {
     }
     post {
         failure {
-            env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
-            def gitTemp = env.GIT_URL
-            def urlShort = gitTemp.substring(0, gitTemp.length()-4)
-            def urlWithCodeCommit = urlShort + "/commit/" + env.GIT_COMMIT
-            withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
-                             string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
-                def htmlMessageBot = "<b>Project</b>: ${env.GIT_REPO_NAME} \n<b>Branch</b>: ${BRANCH_NAME} \n<b>Fecha del commit</b>: ${dateTime} \n<b>Autor Commit</b>: ${GIT_NAME} \n<b>Email Commit</b>: ${GIT_EMAIL} \n<b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \n<b>Código commit</b>: ${GIT_COMMIT} \n<b style=\"background-color:FireBrick;\">Estado</b>: FAILURE \n<b>Failed step</b> : ${FAILED_STAGE} \\n<b>Enlace a Git</b>: ${urlWithCodeCommit}"
-                sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='${htmlMessageBot}'"
-
+            script{
+                env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
+                def gitTemp = env.GIT_URL
+                def urlShort = gitTemp.substring(0, gitTemp.length()-4)
+                def urlWithCodeCommit = urlShort + "/commit/" + env.GIT_COMMIT
+                withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
+                                string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
+                    def htmlMessageBot = "<b>Project</b>: ${env.GIT_REPO_NAME} \n<b>Branch</b>: ${BRANCH_NAME} \n<b>Fecha del commit</b>: ${dateTime} \n<b>Autor Commit</b>: ${GIT_NAME} \n<b>Email Commit</b>: ${GIT_EMAIL} \n<b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \n<b>Código commit</b>: ${GIT_COMMIT} \n<b style=\"background-color:FireBrick;\">Estado</b>: FAILURE \n<b>Failed step</b> : ${FAILED_STAGE} \\n<b>Enlace a Git</b>: ${urlWithCodeCommit}"
+                    sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${ID} -d parse_mode='HTML' -d text='${htmlMessageBot}'"
+                }
             }
         }
     }

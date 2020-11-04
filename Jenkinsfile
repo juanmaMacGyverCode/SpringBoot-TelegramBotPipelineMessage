@@ -34,7 +34,6 @@ pipeline {
                 script {
                     FAILED_STAGE=env.STAGE_NAME
                 }
-                error("Un error")
                 sh "./gradlew test"
             }
         }

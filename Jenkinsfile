@@ -40,7 +40,7 @@ pipeline {
         stage("Push Notification") {
             steps {
                 script{
-                    def branch = ${BRANCH_NAME}
+                    def branch = BRANCH_NAME
                     if (branch == "master") {
                         FAILED_STAGE = env.STAGE_NAME
                         env.GIT_COMMIT_MSG = sh(script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()

@@ -40,24 +40,27 @@ pipeline {
         stage("Push Notification") {
             steps {
                 script{
-                    FAILED_STAGE=env.STAGE_NAME
-                    env.GIT_COMMIT_MSG = sh (script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
-                    GIT_NAME= sh (script: 'git --no-pager show -s --format=%an ${GIT_COMMIT}', returnStdout: true).trim()
-                    GIT_EMAIL= sh (script: 'git --no-pager show -s --format=%ae ${GIT_COMMIT}', returnStdout: true).trim()
-                    env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
-                    def gitTemp = env.GIT_URL
-                    def urlShort = gitTemp.substring(0, gitTemp.length()-4)
-                    def urlWithCodeCommit = urlShort + "/commit/" + env.GIT_COMMIT
-                    def now = LocalDateTime.now()
+                    def branch = ${BRANCH_NAME}
+                    if (branch == "master") {
+                        FAILED_STAGE = env.STAGE_NAME
+                        env.GIT_COMMIT_MSG = sh(script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
+                        GIT_NAME = sh(script: 'git --no-pager show -s --format=%an ${GIT_COMMIT}', returnStdout: true).trim()
+                        GIT_EMAIL = sh(script: 'git --no-pager show -s --format=%ae ${GIT_COMMIT}', returnStdout: true).trim()
+                        env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
+                        def gitTemp = env.GIT_URL
+                        def urlShort = gitTemp.substring(0, gitTemp.length() - 4)
+                        def urlWithCodeCommit = urlShort + "/commit/" + env.GIT_COMMIT
+                        def now = LocalDateTime.now()
 
-                    def dateTime = now.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
+                        def dateTime = now.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"))
 
-                    withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
-                                    string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
+                        withCredentials([string(credentialsId: 'HTTP_TOKEN', variable: 'TOKEN'),
+                                         string(credentialsId: 'CHAT_ID', variable: 'ID')]) {
 
-                        def htmlMessageBot = "<b>+-+-+-+-+-+-+-+-+-+-+-+-+</b>\n\n<b>Estado</b>: <b>SUCCESSFUL</b> \n\n <b>Project</b>: ${env.GIT_REPO_NAME} \n<b>Branch</b>: ${BRANCH_NAME} \n<b>Fecha del commit</b>: ${dateTime} \n<b>Autor Commit</b>: ${GIT_NAME} \n<b>Email Commit</b>: ${GIT_EMAIL} \n<b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \n<b>Código commit</b>: ${GIT_COMMIT} \n<b>Enlace a Git</b>: ${urlWithCodeCommit}\n\n<b>+-+-+-+-+-+-+-+-+-+-+-+-+</b>"
-                        sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id='${ID}' -d parse_mode='HTML' -d text='${htmlMessageBot}'"
+                            def htmlMessageBot = "<b>+-+-+-+-+-+-+-+-+-+-+-+-+</b>\n\n<b>Estado</b>: <b>SUCCESSFUL</b> \n\n <b>Project</b>: ${env.GIT_REPO_NAME} \n<b>Branch</b>: ${BRANCH_NAME} \n<b>Fecha del commit</b>: ${dateTime} \n<b>Autor Commit</b>: ${GIT_NAME} \n<b>Email Commit</b>: ${GIT_EMAIL} \n<b>Mensaje Commit</b>: ${env.GIT_COMMIT_MSG} \n<b>Código commit</b>: ${GIT_COMMIT} \n<b>Enlace a Git</b>: ${urlWithCodeCommit}\n\n<b>+-+-+-+-+-+-+-+-+-+-+-+-+</b>"
+                            sh "curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id='${ID}' -d parse_mode='HTML' -d text='${htmlMessageBot}'"
 
+                        }
                     }
                 }
             }

@@ -14,7 +14,7 @@ def getCardById() {
 
 def funcionExito() {
     def branch = BRANCH_NAME
-    if (branch != "master") {
+    if (branch == "master") {
         FAILED_STAGE = env.STAGE_NAME
         env.GIT_COMMIT_MSG = sh(script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
         GIT_NAME = sh(script: 'git --no-pager show -s --format=%an ${GIT_COMMIT}', returnStdout: true).trim()
@@ -38,7 +38,7 @@ def funcionExito() {
 }
 
 def funcionError() {
-    if (branch != "master") {
+    if (branch == "master") {
         env.GIT_REPO_NAME = env.GIT_URL.replaceFirst(/^.*\/([^\/]+?).git$/, '$1')
         env.GIT_COMMIT_MSG = sh(script: 'git log -1 --pretty=%B ${GIT_COMMIT}', returnStdout: true).trim()
         GIT_NAME = sh(script: 'git --no-pager show -s --format=%an ${GIT_COMMIT}', returnStdout: true).trim()
